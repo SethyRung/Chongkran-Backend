@@ -60,6 +60,12 @@ export class RecipeDto {
   @IsOptional()
   likes?: number;
 
+  @ApiProperty({ type: [String], required: false })
+  @IsArray()
+  @IsMongoId({ each: true })
+  @IsOptional()
+  likedUserIds?: string[];
+
   @ApiProperty({ required: false, default: 0 })
   @IsNumber()
   @IsOptional()

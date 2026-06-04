@@ -77,6 +77,7 @@ export class RecipesService {
       ...recipe.toJSON(),
       author: recipe.author.toString(),
       likes: recipe.likes.length,
+      likedUserIds: recipe.likes.map((id) => id.toString()),
       category: recipe.category.toString(),
     };
   }
