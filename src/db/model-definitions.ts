@@ -10,6 +10,7 @@ import { User, UserSchema } from "@/db/schema/user.schema";
 function withIdTransform(schema: Schema): Schema {
   schema.set("toJSON", {
     virtuals: true,
+    minimize: false,
     transform: (_doc, ret) => {
       ret.id = ret._id?.toString();
       delete ret._id;

@@ -53,9 +53,19 @@ export class AuthService {
 
   async findCurrentUser(id: string): Promise<UserResponseDto> {
     const user = await this.userModel.findById(id);
-    return plainToInstance(UserResponseDto, user, {
-      excludeExtraneousValues: true,
-    });
+    if (!user) {
+      throw new UnauthorizedException("User not found");
+    }
+    return plainToInstance(
+      UserResponseDto,
+      {
+        ...user.toJSON(),
+        favoriteRecipes: user.favoriteRecipes.map((id) => id.toString()),
+      },
+      {
+        excludeExtraneousValues: true,
+      },
+    );
   }
 
   async logout(userId: string): Promise<string> {
