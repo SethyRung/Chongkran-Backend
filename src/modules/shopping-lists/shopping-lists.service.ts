@@ -73,10 +73,10 @@ export class ShoppingListsService {
   }
 
   async remove(userId: string): Promise<string> {
-    const review = await this.shoppingListModel.findById({ userId }).exec();
-    if (!review) throw new NotFoundException("List not found.");
+    const shoppingList = await this.shoppingListModel.findOne({ userId }).exec();
+    if (!shoppingList) throw new NotFoundException("List not found.");
 
-    await review.deleteOne();
+    await shoppingList.deleteOne();
     return "List deleted successfully";
   }
 }
